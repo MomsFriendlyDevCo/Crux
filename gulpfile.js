@@ -14,6 +14,8 @@ var uglify = require('gulp-uglify');
 
 var paths = {
 	ignore: [ // Do not monitor these paths for changes
+		'bower_components/',
+		'node_modules/',
 		'build/',
 		'data/',
 	],
