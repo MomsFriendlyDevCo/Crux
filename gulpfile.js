@@ -29,6 +29,9 @@ var paths = {
 	data: [
 		'models/data/**/*.js'
 	],
+	scenarios: [
+		'models/scenarios/**/*.json',
+	],
 	build: 'build',
 };
 
@@ -36,6 +39,7 @@ requireDir('./gulp-tasks');
 
 // Redirectors
 gulp.task('build', ['scripts', 'css']);
+gulp.task('db', ['scenario']);
 gulp.task('deploy', ['af-deploy']);
 
 /**
