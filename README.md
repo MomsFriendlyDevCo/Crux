@@ -1,5 +1,5 @@
-Gulp
+Crux
 ====
-A collection of Gulp scripts within use at [Moms Friendly Development Company](http://mfdc.biz).
+Generic Node / Express stack used as the model 'ideal' project at [Moms Friendly Development Company](http://mfdc.biz).
 
-These scripts all assume that the layout of the project matches the [standard MFDC NodeJS project structure](https://github.com/MomsFriendlyDevCo/Momsronomicon/blob/master/style-node.md).
+The majority of this application is based on the [standard MFDC NodeJS project structure](https://github.com/MomsFriendlyDevCo/Momsronomicon/blob/master/style-node.md).
