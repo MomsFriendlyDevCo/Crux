@@ -1,6 +1,6 @@
 {
-  "name": "FIXME-Replace-with-project-name",
-  "description": "FIXME-Replace-with-description",
+  "name": "FIXME.project.name",
+  "description": "FIXME.project.description",
   "version": "0.0.0",
   "main": "server.js",
   "private": true,
