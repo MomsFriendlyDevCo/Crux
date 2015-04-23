@@ -118,7 +118,7 @@ var expressLog = require('express-log');
 app.use(expressLog());
 // }}}
 // Controllers {{{
-requireDir('controllers');
+requireDir('./controllers');
 // }}}
 // Static pages {{{
 app.use(express.static(__dirname + '/public'));
