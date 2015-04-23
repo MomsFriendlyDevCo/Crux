@@ -15,7 +15,7 @@ global.app = express();
 // Settings {{{
 global.config = require('./config');
 require('./config/db');
-app.set('title', 'FIXME.project.name');
+app.set('title', '{{FIXME.project.title}}');
 app.set('view engine', "html");
 app.set('layout', 'layouts/main');
 app.engine('.html', require('ejs').renderFile);

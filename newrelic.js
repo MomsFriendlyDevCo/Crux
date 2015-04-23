@@ -8,11 +8,11 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name : ['FIXME.project.name'],
+  app_name : ['{{FIXME.project.name}}'],
   /**
    * Your New Relic license key.
    */
-  license_key : 'FIXME.newrelic.license',
+  license_key : '{{FIXME.newrelic.license}}',
   logging : {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
