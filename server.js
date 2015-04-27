@@ -1,6 +1,9 @@
 #!/usr/bin/env node
+// Initial / Config {{{
+global.config = require('./config');
+// }}}
 // Initial / NewRelic {{{
-require('newrelic');
+if (config.newrelic.enabled) require('newrelic');
 // }}}
 // Requires {{{
 var colors = require('colors');
@@ -13,7 +16,6 @@ var requireDir = require('require-dir');
 global.app = express();
 // }}}
 // Settings {{{
-global.config = require('./config');
 require('./config/db');
 app.set('title', '{{FIXME.project.title}}');
 app.set('view engine', "html");
@@ -24,7 +26,7 @@ app.use(layouts);
 app.use(require('connect-flash')());
 // }}}
 // Settings / Basic Auth (DEBUGGING) {{{
-// Enable this to temporarily lock down the project
+// Enable this to temporarily lock down the server
 // app.use(express.basicAuth('user', 'letmein'));
 // }}}
 // Settings / Parsing {{{

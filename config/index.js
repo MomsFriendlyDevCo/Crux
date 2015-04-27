@@ -16,19 +16,26 @@ if (process.env.VCAP_SERVICES) {
 // }}}
 
 var defaults = {
+	name: "{{FIXME.project.name}}",
+	title: "{{FIXME.project.title}}",
 	env: env,
 	root: path.normalize(__dirname + '/..'),
 	host: null, // Listen to all host requests
-	port: process.env.PORT || 4000,
+	port: process.env.PORT || 80,
 	url: 'http://localhost',
-	secret: "82Dsr4z0pVINQb1H6dOMKCxWWwf1hDnIF4sXYlVQ3rIX0iZJz2JUDqMfoT8eYgZT1vqowv+j1LflFEF9ux5FkTwO3ALqThk=",
+	secret: "{{FIXME.random}}",
 	mongo: {
-		uri: 'mongodb://localhost/gsoc',
+		uri: 'mongodb://localhost/{{FIXME.db.name}}',
 		options: {
 			db: {
 				safe: true
 			}
 		}
+	},
+	newrelic: {
+		enabled: true,
+		name: '{{FIXME.project.name}}',
+		license: '{{FIXME.newrelic.license}}',
 	},
 };
 
