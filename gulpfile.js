@@ -8,7 +8,6 @@ var nodemon = require('gulp-nodemon');
 var replace = require('gulp-replace');
 var requireDir = require('require-dir');
 var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
 
 global.paths = {
 	ignore: [ // Do not monitor these paths for changes
@@ -22,7 +21,6 @@ global.paths = {
 		'app/**/*.js',
 	],
 	css: [
-		'public/css/**/*.scss',
 		'public/css/**/*.css',
 	],
 	data: [
@@ -50,7 +48,6 @@ gulp.task('scripts', [], function() {
 	return gulp.src(paths.scripts)
 		.pipe(sourcemaps.init())
 		.pipe(concat('all.min.js'))
-		.pipe(uglify())
 		.pipe(replace("\"app\/", "\"\/app\/")) // Rewrite all literal paths to relative ones
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(paths.build));
@@ -58,7 +55,7 @@ gulp.task('scripts', [], function() {
 
 
 /**
-* Compile all CSS/SCSS files into the build directory
+* Compile all CSS files into the build directory
 */
 gulp.task('css', [], function() {
 	return gulp.src(paths.css)
