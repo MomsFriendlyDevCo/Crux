@@ -34,13 +34,30 @@ global.paths = {
 
 requireDir('./gulp-tasks');
 
-// Redirectors
+// Redirectors {{{
 gulp.task('default', ['nodemon']);
 gulp.task('build', ['scripts', 'css']);
-gulp.task('db', ['scenario']);
+gulp.task('db', ['scenario'], process.exit);
 gulp.task('deploy', ['af-deploy']);
 
+// Loaders {{{
+gulp.task('load:config', [], function(finish) {
+	global.config = require('./config');
+	finish();
+});
 
+gulp.task('load:db', ['load:config'], function(finish) {
+	require('./config/db');
+	finish();
+});
+
+gulp.task('load:models', ['load:db'], function(finish) {
+	require('./models');
+	finish();
+});
+// }}}
+
+// Custom tasks for this project {{{
 /**
 * Compile all JS files into the build directory
 */
@@ -80,3 +97,4 @@ gulp.task('clean', function(next) {
 gulp.task('server', ['build'], function() {
 	require('./server.js');
 });
+// }}}
