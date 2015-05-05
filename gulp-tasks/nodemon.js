@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var watch = require('gulp-watch');
 var nodemon = require('gulp-nodemon');
+var notify = require('gulp-notify');
 
 /**
 * Launch a server and watch the local file system for changes (restarting the server if any are detected)

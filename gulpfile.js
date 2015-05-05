@@ -4,11 +4,20 @@ var del = require('del');
 var exec = require('child_process').exec;
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var ngmin = require('gulp-ngmin');
+var notify = require('gulp-notify');
 var nodemon = require('gulp-nodemon');
 var replace = require('gulp-replace');
 var requireDir = require('require-dir');
 var sourcemaps = require('gulp-sourcemaps');
+var uglify = require('gulp-uglify');
 
+// Configure / Plugins {{{
+requireDir('./gulp-tasks');
+notify.logLevel(0);
+// }}}
+
+// Configure / Paths {{{
 global.paths = {
 	ignore: [ // Do not monitor these paths for changes
 		'app/', // Updates caught by gulp-watch within 'nodemon' task anyway
@@ -31,8 +40,7 @@ global.paths = {
 	],
 	build: 'build',
 };
-
-requireDir('./gulp-tasks');
+// }}}
 
 // Redirectors {{{
 gulp.task('default', ['nodemon']);
@@ -61,25 +69,29 @@ gulp.task('load:models', ['load:db'], function(finish) {
 /**
 * Compile all JS files into the build directory
 */
-gulp.task('scripts', [], function() {
+gulp.task('scripts', ['load:config'], function() {
 	return gulp.src(paths.scripts)
 		.pipe(sourcemaps.init())
-		.pipe(concat('all.min.js'))
+		.pipe(concat('site.min.js'))
 		.pipe(replace("\"app\/", "\"\/app\/")) // Rewrite all literal paths to relative ones
+		.pipe(ngmin())
+		.pipe(uglify({mangle: false}))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(paths.build));
+		.pipe(gulp.dest(paths.build))
+		.pipe(notify({message: 'Rebuilt frontend scripts', title: config.title}));
 });
 
 
 /**
 * Compile all CSS files into the build directory
 */
-gulp.task('css', [], function() {
+gulp.task('css', ['load:config'], function() {
 	return gulp.src(paths.css)
 		.pipe(sourcemaps.init())
-		.pipe(concat('all.min.css'))
+		.pipe(concat('site.min.css'))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(paths.build));
+		.pipe(gulp.dest(paths.build))
+		.pipe(notify({message: 'Rebuilt frontend CSS', title: config.title}));
 });
 
 
