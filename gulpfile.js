@@ -6,7 +6,6 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var ngmin = require('gulp-ngmin');
 var notify = require('gulp-notify');
-var nodemon = require('gulp-nodemon');
 var replace = require('gulp-replace');
 var requireDir = require('require-dir');
 var sourcemaps = require('gulp-sourcemaps');
@@ -20,7 +19,7 @@ notify.logLevel(0);
 // Configure / Paths {{{
 global.paths = {
 	ignore: [ // Do not monitor these paths for changes
-		'app/', // Updates caught by gulp-watch within 'nodemon' task anyway
+		'app/', // No need to watch this with nodemon as its handled seperately
 		'bower_components/',
 		'node_modules/',
 		'build/',
@@ -47,6 +46,7 @@ gulp.task('default', ['nodemon']);
 gulp.task('build', ['scripts', 'css']);
 gulp.task('db', ['scenario'], process.exit);
 gulp.task('deploy', ['af-deploy']);
+// }}}
 
 // Loaders {{{
 gulp.task('load:config', [], function(finish) {
