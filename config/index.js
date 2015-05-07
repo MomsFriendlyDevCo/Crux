@@ -27,6 +27,7 @@ var defaults = {
 	gulp: {
 		debugJS: true,
 		minifyJS: false,
+		debugCSS: true,
 		minifyCSS: false,
 	},
 	mongo: {

@@ -5,6 +5,7 @@ var exec = require('child_process').exec;
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
 var gutil = require('gulp-util');
+var minifyCSS = require('gulp-minify-css');
 var ngmin = require('gulp-ngmin');
 var notify = require('gulp-notify');
 var replace = require('gulp-replace');
@@ -88,9 +89,10 @@ gulp.task('scripts', ['load:config'], function() {
 */
 gulp.task('css', ['load:config'], function() {
 	return gulp.src(paths.css)
-		.pipe(sourcemaps.init())
+		.pipe(gulpIf(config.gulp.debugCSS, sourcemaps.init()))
 		.pipe(concat('site.min.css'))
-		.pipe(sourcemaps.write())
+		.pipe(gulpIf(config.gulp.minifyCSS, minifyCSS()))
+		.pipe(gulpIf(config.gulp.debugCSS, sourcemaps.write()))
 		.pipe(gulp.dest(paths.build))
 		.pipe(notify({message: 'Rebuilt frontend CSS', title: config.title}));
 });
