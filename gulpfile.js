@@ -3,6 +3,7 @@ var concat = require('gulp-concat');
 var del = require('del');
 var exec = require('child_process').exec;
 var gulp = require('gulp');
+var gulpIf = require('gulp-if');
 var gutil = require('gulp-util');
 var ngmin = require('gulp-ngmin');
 var notify = require('gulp-notify');
@@ -71,12 +72,12 @@ gulp.task('load:models', ['load:db'], function(finish) {
 */
 gulp.task('scripts', ['load:config'], function() {
 	return gulp.src(paths.scripts)
-		.pipe(sourcemaps.init())
+		.pipe(gulpIf(config.gulp.debugJS, sourcemaps.init()))
 		.pipe(concat('site.min.js'))
 		.pipe(replace("\"app\/", "\"\/app\/")) // Rewrite all literal paths to relative ones
-		.pipe(ngmin())
-		.pipe(uglify({mangle: false}))
-		.pipe(sourcemaps.write())
+		.pipe(gulpIf(config.gulp.minifyJS, ngmin()))
+		.pipe(gulpIf(config.gulp.minifyJS, uglify({mangle: false})))
+		.pipe(gulpIf(config.gulp.debugJS, sourcemaps.write()))
 		.pipe(gulp.dest(paths.build))
 		.pipe(notify({message: 'Rebuilt frontend scripts', title: config.title}));
 });

@@ -24,6 +24,11 @@ var defaults = {
 	port: process.env.PORT || 80,
 	url: 'http://localhost',
 	secret: "{{FIXME.random}}",
+	gulp: {
+		debugJS: true,
+		minifyJS: false,
+		minifyCSS: false,
+	},
 	mongo: {
 		uri: 'mongodb://localhost/{{FIXME.db.name}}',
 		options: {
