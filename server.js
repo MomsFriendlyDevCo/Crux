@@ -122,6 +122,7 @@ app.use(expressLog());
 // Controllers {{{
 requireDir('./controllers');
 // }}}
+
 // Static pages {{{
 app.use(express.static(__dirname + '/public'));
 app.use('/app', express.static(__dirname + '/app'));
@@ -129,12 +130,14 @@ app.use('/build', express.static(__dirname + '/build'));
 app.use('/partials', express.static(__dirname + '/views/partials'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 // }}}
+
 // Error catcher {{{
 app.use(function(err, req, res, next){
 	console.error(err.stack);
 	res.send(500, 'Something broke!').end();
 });
 // }}}
+
 // Init {{{
 var server = app.listen(config.port, config.host, function() {
 	console.log('Web interface listening on ' + ((config.host || 'localhost') + ':' + config.port).cyan);
