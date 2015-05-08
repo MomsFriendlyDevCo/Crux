@@ -19,15 +19,17 @@ gulp.task('nodemon', ['load:config', 'build'], function(finish) {
 		gulp.start('css');
 	});
 
+	var runCount = 0;
 	nodemon({
 		script: 'server.js',
 		ext: 'html js ejs css scss',
 		ignore: paths.ignore.concat(paths.scripts, paths.css), // Only watch server files - everything else is handled seperately anyway
 	})
 		.on('start', function() {
-			notify({message: 'Server started', title: config.title});
+			if (runCount > 0) return;
+			notify().write({message: 'Server started', title: config.title});
 		})
 		.on('restart', function() {
-			notify({message: 'Server restarted', title: config.title});
+			notify().write({message: 'Server restart #' + ++runCount, title: config.title});
 		});
 });

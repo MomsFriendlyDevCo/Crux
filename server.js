@@ -43,7 +43,7 @@ app.use(session({
 	store: new mongoStore({mongooseConnection: mongoose.connection}),
 	resave: false,
 	saveUninitialized: false,
-	cookie: { 
+	cookie: {
 		expires: new Date(Date.now() + (3600000 * 48)), // 48 hours
 		maxAge: (3600000 * 48) // 48 hours
 	}

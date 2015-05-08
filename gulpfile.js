@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var concat = require('gulp-concat');
 var del = require('del');
-var exec = require('child_process').exec;
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
 var gutil = require('gulp-util');
