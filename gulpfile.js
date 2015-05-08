@@ -1,11 +1,11 @@
 var _ = require('lodash');
+var annotate = require('gulp-ng-annotate');
 var concat = require('gulp-concat');
 var del = require('del');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
 var gutil = require('gulp-util');
 var minifyCSS = require('gulp-minify-css');
-var ngmin = require('gulp-ngmin');
 var notify = require('gulp-notify');
 var replace = require('gulp-replace');
 var requireDir = require('require-dir');
@@ -75,7 +75,7 @@ gulp.task('scripts', ['load:config'], function() {
 		.pipe(gulpIf(config.gulp.debugJS, sourcemaps.init()))
 		.pipe(concat('site.min.js'))
 		.pipe(replace("\"app\/", "\"\/app\/")) // Rewrite all literal paths to relative ones
-		.pipe(gulpIf(config.gulp.minifyJS, ngmin()))
+		.pipe(gulpIf(config.gulp.minifyJS, annotate()))
 		.pipe(gulpIf(config.gulp.minifyJS, uglify({mangle: false})))
 		.pipe(gulpIf(config.gulp.debugJS, sourcemaps.write()))
 		.pipe(gulp.dest(paths.build))
