@@ -21,6 +21,7 @@ notify.logLevel(0);
 global.paths = {
 	ignore: [ // Do not monitor these paths for changes
 		'app/', // No need to watch this with nodemon as its handled seperately
+		'views/partials',
 		'bower_components/',
 		'node_modules/',
 		'build/',
