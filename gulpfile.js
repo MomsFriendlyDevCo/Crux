@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var annotate = require('gulp-ng-annotate');
+var babel = require("gulp-babel");
 var concat = require('gulp-concat');
 var del = require('del');
 var gulp = require('gulp');
@@ -73,6 +74,7 @@ gulp.task('load:models', ['load:db'], function(finish) {
 */
 gulp.task('scripts', ['load:config'], function() {
 	return gulp.src(paths.scripts)
+		.pipe(babel())
 		.pipe(gulpIf(config.gulp.debugJS, sourcemaps.init()))
 		.pipe(concat('site.min.js'))
 		.pipe(replace("\"app\/", "\"\/app\/")) // Rewrite all literal paths to relative ones
