@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "async-chainable": "^1.7.11",
-    "body-parser": "^1.12.3",
+    "body-parser": "^1.12.4",
     "bower": "^1.4.1",
     "colors": "^1.1.0",
     "connect-flash": "~0.1.1",
@@ -25,7 +25,7 @@
     "express-ejs-layouts": "~1.1.0",
     "express-log": "^1.0.1",
     "express-restify-mongoose": "^0.7.5",
-    "express-session": "^1.11.1",
+    "express-session": "^1.11.2",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
     "gulp-git-watch": "^0.1.0",
@@ -45,7 +45,7 @@
     "moment": "^2.10.2",
     "mongoose": "^4.0.2",
     "multer": "^0.1.8",
-    "newrelic": "^1.18.5",
+    "newrelic": "^1.19.0",
     "passport": "~0.2.1",
     "passport-local": "~1.0.0",
     "require-dir": "^0.3.0"
