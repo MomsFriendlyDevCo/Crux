@@ -140,6 +140,6 @@ app.use(function(err, req, res, next){
 
 // Init {{{
 var server = app.listen(config.port, config.host, function() {
-	console.log('Web interface listening on ' + ((config.host || 'localhost') + ':' + config.port).cyan);
+	console.log('Web interface listening at', colors.cyan('http://' + (config.host || 'localhost') + (config.port == 80 ? '' : ':' + config.port)));
 });
 // }}}
