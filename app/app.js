@@ -1,6 +1,6 @@
 var app = angular.module('app', [
 	'ngResource',
-	'ngRoute'
+	'ui.router'
 ]);
 
 
@@ -15,3 +15,18 @@ app.config(function($httpProvider) {
 	// Enable async HTTP for performance boost
 	$httpProvider.useApplyAsync(true);
 });
+
+// Router related bugfixes {{{
+app.run(function($rootScope) {
+	// BUGFIX: Destory any open Bootstrap modals during transition {{{
+	$rootScope.$on('$stateChangeStart', function() {
+		$('body > .modal-backdrop').remove();
+	});
+	// }}}
+	// BUGFIX: Focus any input element with the 'autofocus' attribute on state change {{{
+	$rootScope.$on('$stateChangeSuccess', function() {
+		$('div[ui-view=main]').find('input[autofocus]').focus();
+	});
+	// }}}
+});
+// }}}

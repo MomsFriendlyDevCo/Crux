@@ -1,5 +1,10 @@
-app.config(function($routeProvider, $locationProvider) {
-	$routeProvider
-		.when('/login', {templateUrl: "/partials/user/login.html"})
-		.otherwise({templateUrl: "/partials/dashboard.html"});
+app.config(function($stateProvider, $urlRouterProvider) {
+	$urlRouterProvider
+		.otherwise('/');
+
+	$stateProvider
+		.state('home', {
+			url: '/',
+			views: {main: {templateUrl: '/partials/dashboard.html'}}
+		})
 });
