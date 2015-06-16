@@ -23,7 +23,7 @@ var defaults = {
 	host: null, // Listen to all host requests
 	port: process.env.PORT || 80,
 	url: 'http://localhost',
-	secret: "{{FIXME.random}}",
+	secret: "{{FIXME.random}}", // A quick way to populate this is with `cat /dev/urandom | base64`
 	gulp: {
 		debugJS: true,
 		minifyJS: false,
