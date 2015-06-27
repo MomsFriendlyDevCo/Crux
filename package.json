@@ -8,11 +8,11 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "start": "node server.js",
-    "postinstall": "bower install --allow-root && gulp build"
+    "postinstall": "bower install --allow-root && gulp build",
+    "start": "node server.js"
   },
   "dependencies": {
-    "async-chainable": "^1.7.11",
+    "async-chainable": "^1.7.12",
     "body-parser": "^1.12.4",
     "bower": "^1.4.1",
     "colors": "^1.1.0",
