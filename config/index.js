@@ -24,6 +24,7 @@ var defaults = {
 	port: process.env.PORT || 80,
 	url: 'http://localhost',
 	secret: "{{FIXME.random}}", // A quick way to populate this is with `cat /dev/urandom | base64`
+	contactEmail: 'matt@mfdc.biz',
 	gulp: {
 		debugJS: true,
 		minifyJS: false,
