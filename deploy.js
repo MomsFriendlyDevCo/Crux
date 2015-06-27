@@ -1,4 +1,5 @@
 var FIXME = {
+	domain: 'server.com',
 	project: {
 		name: 'FIXME:InsertProjectNameHere', // Must follow NPM naming rules (no spaces, lower case)
 		title: 'FIXME: Insert Project Name Here', // Human friendly version of the above
