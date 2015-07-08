@@ -30,3 +30,10 @@ app.run(function($rootScope) {
 	// }}}
 });
 // }}}
+// jQuery related bugfixes {{{
+// Focus items within a modal if they have the [autofocus] attrib {{{
+$(document).on('shown.bs.modal', function() {
+	var childFocus = $(this).find('.modal.in [autofocus]');
+	if (childFocus.length) childFocus.first().focus();
+});
+// }}}
