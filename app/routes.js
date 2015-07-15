@@ -7,4 +7,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/',
 			views: {main: {templateUrl: '/partials/dashboard.html'}}
 		})
+		.state('contact', {
+			url: '/contact',
+			views: {main: {templateUrl: '/partials/pages/contact.html'}}
+		})
 });

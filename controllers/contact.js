@@ -8,7 +8,7 @@ var email = require('email').Email;
 * @param string req.body.subject The subject of the form (defaults to 'Contact form' if none)
 * @param string req.body.body The body of the email
 */
-app.post('/contact', function(req, res) {
+app.post('/api/contact', function(req, res) {
 	if (!req.body) return res.status(400).send('No post data provided');
 	if (!req.body.name) return res.status(400).send('No name provided');
 	if (!req.body.email) return res.status(400).send('No email provided');
