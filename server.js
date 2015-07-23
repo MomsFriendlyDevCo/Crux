@@ -110,12 +110,20 @@ app.use(passport.session());
 // }}}
 // Settings / Restify {{{
 global.restify = require('express-restify-mongoose');
+var ERMGuard = require('express-restify-mongoose-guard')({
+	// Forbid any field that begins with '_'
+	removeFields: [/^_/],
+
+	// Allow _id and __v (but map to _v)
+	renameFields: {_id: '_id', __v: '_v'},
+
+	// Remap all DELETE methods to UPDATE setting status=deleted
+	deleteUpdateRemap: {status: 'deleted'},
+});
 restify.defaults({
 	version: '',
-	outputFn: require('express-restify-mongoose-guard')({
-		renameFields: {_id: '_id', __v: '_v'},
-		removeFields: [/^_/]
-	}),
+	middleware: ERMGuard.preHook,
+	outputFn: ERMGuard.postHook,
 });
 // }}}
 // Settings / Logging {{{
