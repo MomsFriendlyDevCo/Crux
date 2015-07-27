@@ -32,7 +32,7 @@ app.use(layouts);
 app.use(require('cookie-parser')());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(require('multer'));
+app.use(require('multer')());
 // }}}
 // Settings / Cookies + Sessions {{{
 app.use(require('connect-flash')());
