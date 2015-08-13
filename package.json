@@ -8,6 +8,7 @@
     "node": "0.10.x"
   },
   "scripts": {
+    "deploy": "gulp deploy",
     "postinstall": "gulp build",
     "start": "node server.js"
   },
