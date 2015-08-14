@@ -26,7 +26,11 @@ var defaults = {
 	host: null, // Listen to all host requests
 	port: process.env.PORT || 80,
 	url: 'http://localhost',
-	secret: "{{FIXME.random}}", // A quick way to populate this is with `cat /dev/urandom | base64`
+	secret: "{{FIXME.random}}", // A quick way to populate this is with `cat /dev/urandom | base64 | head -n10`
+	access: {
+		lockdown: false, // Set to true to lock the site with the below users
+		users: [{user: 'user', pass: 'qwaszx'}],
+	},
 	contactEmail: 'matt@mfdc.biz',
 	gulp: {
 		debugJS: true,
