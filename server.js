@@ -6,6 +6,7 @@ global.config = require('./config');
 if (config.newrelic.enabled) require('newrelic');
 // }}}
 // Requires {{{
+var _ = require('lodash');
 var colors = require('colors');
 var bodyParser = require('body-parser');
 var express = require('express');
