@@ -51,6 +51,7 @@ gulp.task('default', ['nodemon']);
 gulp.task('build', ['scripts', 'css']);
 gulp.task('db', ['scenario'], process.exit);
 gulp.task('deploy', ['pm2-deploy'], process.exit);
+gulp.task('start', ['pm2-start'], process.exit);
 // }}}
 
 // Loaders {{{
