@@ -1,6 +1,14 @@
 {
 	"users": [
 		{
+			"_ref": "users.cw",
+			"username": "cw",
+			"password": "qwaszx",
+			"name": "Charles Wang",
+			"email": "charles@mfdc.biz",
+			"role": "root"
+		},
+		{
 			"_ref": "users.mc",
 			"username": "mc",
 			"password": "qwaszx",
