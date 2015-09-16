@@ -49,9 +49,11 @@ global.paths = {
 // Redirectors {{{
 gulp.task('default', ['nodemon']);
 gulp.task('build', ['scripts', 'css']);
-gulp.task('db', ['scenario'], process.exit);
-gulp.task('deploy', ['pm2-deploy'], process.exit);
-gulp.task('start', ['pm2-start'], process.exit);
+gulp.task('db', ['scenario']);
+gulp.task('fakes', ['fake-users']);
+gulp.task('deploy', ['pm2-deploy']);
+gulp.task('start', ['pm2-start']);
+gulp.on('stop', function() { process.exit(0) });
 // }}}
 
 // Loaders {{{
@@ -139,7 +141,6 @@ gulp.task('css', ['load:config'], function() {
 				}).write(0);
 		});
 });
-
 
 /**
 * Launch a plain server without Nodamon
