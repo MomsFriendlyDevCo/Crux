@@ -103,7 +103,7 @@ gulp.task('scripts', ['load:config'], function() {
 			if (!hasErr)
 				notify({
 					title: config.title,
-					message: 'Rebuilt frontend scripts #' + ++scriptBootCount,
+					message: 'Rebuilt frontend scripts' + (++scriptBootCount > 1 ? ' #' + scriptBootCount : ''),
 					icon: __dirname + '/gulp-tasks/icons/angular.png',
 				}).write(0);
 		});
@@ -136,7 +136,7 @@ gulp.task('css', ['load:config'], function() {
 			if (!hasErr)
 				notify({
 					title: config.title,
-					message: 'Rebuilt frontend CSS #' + ++cssBootCount,
+					message: 'Rebuilt frontend CSS' + (++cssBootCount > 1 ? ' #' + cssBootCount : ''),
 					icon: __dirname + '/gulp-tasks/icons/css.png',
 				}).write(0);
 		});
