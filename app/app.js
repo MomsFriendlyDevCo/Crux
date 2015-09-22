@@ -18,7 +18,7 @@ app.config(function($httpProvider) {
 
 // Router related bugfixes {{{
 app.run(function($rootScope) {
-	// BUGFIX: (multiple) Clean up Bootstrap detritus during transition
+	// BUGFIX: (multiple) Clean up Bootstrap detritus during transition {{{
 	$rootScope.$on('$stateChangeStart', function() {
 		// Destory any open Bootstrap modals
 		$('body > .modal-backdrop').remove();
@@ -43,4 +43,5 @@ $(document).on('shown.bs.modal', function() {
 	var childFocus = $(this).find('.modal.in [autofocus]');
 	if (childFocus.length) childFocus.first().focus();
 });
+// }}}
 // }}}

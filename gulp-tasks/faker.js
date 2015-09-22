@@ -20,7 +20,7 @@ gulp.task('fake-users', ['load:db'], function(finish) {
 		gutil.log(' * Created', colors.cyan(count), colors.bold('fake'), colors.magenta('users'));
 		notify({
 			title: config.title,
-			message: 'Created fake users',
+			message: 'Created ' + count + ' fake users',
 			icon: __dirname + '/icons/ghost.png',
 		}).write(0);
 		finish();
