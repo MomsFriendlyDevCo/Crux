@@ -5,4 +5,7 @@ module.exports = {
 	newrelic: {
 		enabled: false,
 	},
+	access: {
+		lockdown: false,
+	},
 };
