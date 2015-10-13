@@ -10,9 +10,6 @@ var replace = require('gulp-replace');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 
-var cache = require('gulp-cached');
-var remember = require('gulp-remember');
-
 /**
 * Compile all JS files into the build directory
 */
@@ -30,7 +27,6 @@ gulp.task('scripts', ['load:config'], function() {
 				this.emit('end');
 			},
 		}))
-		.pipe(cache('scripts'))
 		.pipe(babel())
 		.pipe(gulpIf(config.gulp.debugJS, sourcemaps.init()))
 		.pipe(concat('site.min.js'))
@@ -38,7 +34,6 @@ gulp.task('scripts', ['load:config'], function() {
 		.pipe(gulpIf(config.gulp.minifyJS, annotate()))
 		.pipe(gulpIf(config.gulp.minifyJS, uglify({mangle: false})))
 		.pipe(gulpIf(config.gulp.debugJS, sourcemaps.write()))
-		.pipe(remember('scripts'))
 		.pipe(gulp.dest(paths.build))
 		.on('end', function() {
 			if (!hasErr)
