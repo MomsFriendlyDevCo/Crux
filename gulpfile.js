@@ -26,6 +26,9 @@ global.paths = {
 	css: [
 		'public/css/**/*.css',
 	],
+	partials: [
+		'views/partials/**/*.html',
+	],
 	data: [
 		'models/data/**/*.js'
 	],

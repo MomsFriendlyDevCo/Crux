@@ -19,6 +19,11 @@ gulp.task('nodemon', ['load:config', 'build'], function(finish) {
 		gulp.start('css');
 	});
 
+	watch(paths.partials, function() {
+		gutil.log('Rebuild Angular partials...');
+		gulp.start('partials');
+	});
+
 	var runCount = 0;
 	nodemon({
 		script: 'server.js',
