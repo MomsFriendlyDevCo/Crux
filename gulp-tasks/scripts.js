@@ -5,6 +5,7 @@ var colors = require('chalk');
 var gplumber = require('gulp-plumber');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
+var gutil = require('gulp-util');
 var notify = require('gulp-notify');
 var replace = require('gulp-replace');
 var sourcemaps = require('gulp-sourcemaps');
