@@ -129,6 +129,19 @@ var ERMGuard = require('express-restify-mongoose-guard')({
 
 	// Remap all DELETE methods to UPDATE setting status=deleted
 	deleteUpdateRemap: {status: 'deleted'},
+
+	// Remap GET, so it treats objects with field 'status' set to
+	// 'deleted' as objects removed from the database and therefore
+	// does not retrieve them. The assumption here is that if one
+	// would like to perform operations of "deleted" objects, one
+	// writes a custom function that queries the database directly
+	// and not by using express-restify-mongoose.
+	remapMethods: {
+		get: function(req, res, next) {
+			req.query.status = '!=deleted';
+			next(null);
+		}
+	}
 });
 restify.defaults({
 	version: '',
