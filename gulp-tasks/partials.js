@@ -16,7 +16,7 @@ gulp.task('partials', ['load:config'], function() {
 		.on('end', function() {
 			notify({
 				title: config.title,
-				message: 'Rebuilt angular template cache ' + (++templateBootCount > 1 ? ' #' + scriptBootCount : ''),
+				message: 'Rebuilt angular template cache ' + (++templateBootCount > 1 ? ' #' + templateBootCount : ''),
 				icon: __dirname + '/icons/html5.png',
 			}).write(0);
 		});
