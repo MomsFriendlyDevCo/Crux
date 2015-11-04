@@ -55,6 +55,7 @@
     "gulp-util": "^3.0.6",
     "gulp-watch": "=4.2.5",
     "lodash": "^3.10.1",
+    "map-stream": "0.0.6",
     "mkdirp": "^0.5.1",
     "moment": "^2.10.6",
     "mongoose": "^4.1.7",
