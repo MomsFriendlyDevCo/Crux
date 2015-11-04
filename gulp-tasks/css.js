@@ -3,6 +3,7 @@ var concat = require('gulp-concat');
 var gplumber = require('gulp-plumber');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
+var gutil = require('gulp-util');
 var minifyCSS = require('gulp-minify-css');
 var notify = require('gulp-notify');
 var sourcemaps = require('gulp-sourcemaps');
@@ -16,7 +17,6 @@ gulp.task('css', ['load:config'], function() {
 	return gulp.src(paths.css)
 		.pipe(gplumber({
 			errorHandler: function(err) {
-				gutil.beep();
 				gutil.log(colors.red('ERROR DURING CSS BUILD'));
 				notify({message: err.name + '\n' + err.message, title: config.title + ' - CSS Error'}).write(err);
 				process.stdout.write(err.stack);

@@ -20,7 +20,6 @@ gulp.task('scripts', ['load:config'], function() {
 	return gulp.src(paths.scripts)
 		.pipe(gplumber({
 			errorHandler: function(err) {
-				gutil.beep();
 				gutil.log(colors.red('ERROR DURING JS BUILD'));
 				notify({message: err.name + '\n' + err.message, title: config.title + ' - JS Error'}).write(err);
 				process.stdout.write(err.stack);
