@@ -2,6 +2,7 @@ var _ = require('lodash');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var notify = require('gulp-notify');
+var runSequence = require('run-sequence');
 var requireDir = require('require-dir');
 
 // Configure / Plugins {{{
@@ -10,6 +11,7 @@ notify.logLevel(0);
 // }}}
 
 // Configure / Paths {{{
+// All paths should be relative to the project root directory
 global.paths = {
 	ignore: [ // Do not monitor these paths for changes
 		'app/', // No need to watch this with nodemon as its handled seperately
@@ -40,13 +42,22 @@ global.paths = {
 // }}}
 
 // Redirectors {{{
-gulp.task('default', ['nodemon']);
-gulp.task('build', ['scripts', 'css']);
+gulp.task('default', ['serve']);
+gulp.task('clean', ['scripts:clean']);
 gulp.task('db', ['scenario']);
 gulp.task('fakes', ['fake-users']);
 gulp.task('deploy', ['pm2-deploy']);
+gulp.task('serve', ['nodemon']);
 gulp.task('start', ['pm2-start']);
 gulp.on('stop', function() { process.exit(0) });
+
+gulp.task('build', function(finish) {
+	runSequence(
+		'clean',
+		['scripts', 'css'],
+		finish
+	);
+});
 // }}}
 
 // Loaders {{{

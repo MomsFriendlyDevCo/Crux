@@ -1,4 +1,5 @@
 var annotate = require('gulp-ng-annotate');
+var cache = require('gulp-cache');
 var concat = require('gulp-concat');
 var babel = require('gulp-babel');
 var colors = require('chalk');
@@ -27,7 +28,17 @@ gulp.task('scripts', ['load:config'], function() {
 				this.emit('end');
 			},
 		}))
-		.pipe(babel())
+		.pipe(cache(babel({ // Cache output and pipe though Babel
+			presets: ['es2015'],
+		}), {
+			key: function(file) {
+				return [file.contents.toString('utf8'), file.stat.mtime, file.stat.size].join('');
+			},
+			success: function(file) {
+				gutil.log('Babel compile', colors.cyan(file.relative));
+				return true;
+			},
+		}))
 		.pipe(gulpIf(config.gulp.debugJS, sourcemaps.init()))
 		.pipe(concat('site.min.js'))
 		.pipe(replace("\"app\/", "\"\/app\/")) // Rewrite all literal paths to relative ones
@@ -43,4 +54,9 @@ gulp.task('scripts', ['load:config'], function() {
 					icon: __dirname + '/icons/angular.png',
 				}).write(0);
 		});
+});
+
+
+gulp.task('scripts:clean', function(next) {
+	cache.clearAll(next);
 });
