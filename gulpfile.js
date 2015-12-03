@@ -3,7 +3,6 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var notify = require('gulp-notify');
 var runSequence = require('run-sequence');
-var requireDir = require('require-dir');
 
 // Configure / Plugins {{{
 requireDir('./gulp-tasks');
