@@ -1,5 +1,5 @@
 var babel = require('babel-core');
-var colors = require('colors');
+var colors = require('chalk');
 var gulp = require('gulp');
 var mapStream = require('map-stream');
 
