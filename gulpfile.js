@@ -2,6 +2,7 @@ var _ = require('lodash');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var notify = require('gulp-notify');
+var requireDir = require('require-dir');
 var runSequence = require('run-sequence');
 
 // Configure / Plugins {{{
