@@ -78,7 +78,6 @@ passport.serializeUser(function(user, next) {
 passport.deserializeUser(function(id, next) {
 	Users
 		.findOne({username: id})
-		.populate('country')
 		.exec(function(err, user) {
 			return next(err, user);
 		});
@@ -119,6 +118,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 // }}}
 // Settings / Restify {{{
+// Add express-restify-mongoose-queryizer to fix ERM not supporting `?filter=value` format any more
+app.use(require('express-restify-mongoose-queryizer')({
+	rewriteQuery: true,
+	rewriteQueryDeleteKeys: false,
+	postToPatch: true,
+	postToPatchUrl: /^\/api\/.+\/[0-9a-f]{24}$/,
+}));
+
 global.restify = require('express-restify-mongoose');
 var ERMGuard = require('express-restify-mongoose-guard')({
 	// Forbid any field that begins with '_'
@@ -173,6 +180,6 @@ app.use(function(err, req, res, next){
 
 // Init {{{
 var server = app.listen(config.port, config.host, function() {
-	console.log('Web interface listening at', colors.cyan('http://' + (config.host || 'localhost') + (config.port == 80 ? '' : ':' + config.port)));
+	console.log('Web interface listening at', colors.cyan(config.url));
 });
 // }}}
