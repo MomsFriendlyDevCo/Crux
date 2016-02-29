@@ -2,7 +2,4 @@
 module.exports = {
 	port: 8080,
 	url: 'http://localhost',
-	newrelic: {
-		enabled: false,
-	},
 };

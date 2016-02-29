@@ -9,4 +9,7 @@ module.exports = {
 		debugCSS: false,
 		minifyCSS: true,
 	},
+	newrelic: {
+		enabled: true,
+	},
 };
