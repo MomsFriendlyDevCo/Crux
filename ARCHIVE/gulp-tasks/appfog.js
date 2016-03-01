@@ -1,9 +1,9 @@
 var _ = require('lodash');
 var async = require('async-chainable');
-var del = require('del');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var fs = require('fs');
+var rimraf = require('rimraf');
 var spawn = require('child_process').spawn;
 
 /**
@@ -65,9 +65,7 @@ gulp.task('af-deploy', ['load:config'], function(done) {
 		})
 		.then(function(next) {
 			gutil.log('Cleaning up...');
-			del('npm-shrinkwrap.json');
-			del('.afignore');
-			next();
+			rimraf(['npm-shrinkwrap.json', '.afignore'], next);
 		})
 		.end(done);
 });
