@@ -43,7 +43,7 @@ gulp.task('nodemon', ['load:config', 'build'], function(finish) {
 			notify({
 				title: config.title,
 				message: 'Server restart' + (++runCount > 1 ? ' #' + runCount : ''),
-				icon: __dirname + '/icons/node.png',
+				icon: __dirname + '/icons/nodemon.png',
 			}).write(0);
 		});
 });
