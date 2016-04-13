@@ -39,6 +39,20 @@ global.paths = {
 		'models/scenarios/**/*.json',
 	],
 	build: 'build',
+	vendors: [
+		// Vendor dependencies (all must follow the protocol://path format)
+		// Dependencies maintain order so list pre-requisites first
+		// Do not include minified files here! Minification happens automatically
+		'file://node_modules/angular/angular.js',
+		'npm://jquery',
+		'npm://lodash',
+		'file://node_modules/bootstrap/dist/css/bootstrap.css',
+		'file://node_modules/bootstrap/dist/js/bootstrap.js',
+		'file://node_modules/angular-resource/angular-resource.js',
+		'npm://angular-ui-router',
+		'file://node_modules/font-awesome/css/font-awesome.css', // NOTE: Font files are handled in controllers/vendors.js
+		'npm://moment',
+	],
 };
 // }}}
 
@@ -54,8 +68,7 @@ gulp.on('stop', function() { process.exit(0) });
 
 gulp.task('build', function(finish) {
 	runSequence(
-		'clean',
-		['scripts', 'css'],
+		['css', 'partials', 'scripts', 'vendors'],
 		finish
 	);
 });

@@ -11,29 +11,11 @@
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
 	<link rel="shortcut icon" href="/favicon.png" type="image/x-icon"/>
 
-	<!-- FontAwesome -->
-	<link rel="stylesheet" href="/bower_components/fontawesome/css/font-awesome.min.css">
-
-	<!-- jQuery -->
-	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-
-	<!-- Bootstrap -->
-	<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-	<!-- Moment -->
-	<script src="/bower_components/moment/min/moment.min.js"></script>
-
-	<!-- Angular -->
-	<script src="/bower_components/angular/angular<%=config.gulp.minifyJS ? '.min' : ''%>.js"></script>
-	<script src="/bower_components/angular-resource/angular-resource.min.js"></script>
-	<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-
-	<!-- lodash -->
-	<script src="/bower_components/lodash/lodash.min.js"></script>
-
+	<script src="/build/vendor.min.js"></script>
+	<link href="/build/vendor.min.css" rel="stylesheet" type="text/css"/>
 	<script src="/build/site.min.js"></script>
 	<link href="/build/site.min.css" rel="stylesheet" type="text/css"/>
+	<script src="/build/partials.min.js"></script>
 </head>
 
 <body ng-app="app" ng-controller="globalController">
