@@ -1,6 +1,11 @@
 var app = angular.module('app', [
+	'angular-bs-confirm',
+	'angular-bs-tooltip',
 	'ngResource',
+	'ui.gravatar',
 	'ui.router',
+	'ui-notification',
+	'uiSwitch',
 ]);
 
 
@@ -18,7 +23,7 @@ app.config(function($httpProvider) {
 
 // Router related bugfixes {{{
 app.run(function($rootScope) {
-	// BUGFIX: (multiple) Clean up Bootstrap detritus during transition {{{
+	// BUGFIX: Destory any open Bootstrap modals during transition {{{
 	$rootScope.$on('$stateChangeStart', function() {
 		// Destory any open Bootstrap modals
 		$('body > .modal-backdrop').remove();

@@ -17,7 +17,6 @@ global.paths = {
 	ignore: [ // Do not monitor these paths for changes
 		'app/', // No need to watch this with nodemon as its handled seperately
 		'views/partials',
-		'bower_components/',
 		'node_modules/',
 		'build/',
 		'data/',
@@ -43,15 +42,23 @@ global.paths = {
 		// Vendor dependencies (all must follow the protocol://path format)
 		// Dependencies maintain order so list pre-requisites first
 		// Do not include minified files here! Minification happens automatically
-		'file://node_modules/angular/angular.js',
-		'npm://jquery',
-		'npm://lodash',
-		'file://node_modules/bootstrap/dist/css/bootstrap.css',
-		'file://node_modules/bootstrap/dist/js/bootstrap.js',
-		'file://node_modules/angular-resource/angular-resource.js',
-		'npm://angular-ui-router',
-		'file://node_modules/font-awesome/css/font-awesome.css', // NOTE: Font files are handled in controllers/vendors.js
-		'npm://moment',
+		'node_modules/jquery/dist/jquery.js',
+		'node_modules/angular/angular.js',
+		'node_modules/lodash/lodash.js',
+		'node_modules/moment/moment.js',
+		// --- less important vendors below this line --- //
+		'node_modules/bootstrap/dist/css/bootstrap.css',
+		'node_modules/bootstrap/dist/js/bootstrap.js',
+		'node_modules/angular-bs-confirm/angular-bs-confirm.js',
+		'node_modules/angular-bs-tooltip/angular-bs-tooltip.js',
+		'node_modules/angular-gravatar/build/angular-gravatar.js',
+		'node_modules/angular-ui-notification/dist/angular-ui-notification.css',
+		'node_modules/angular-ui-notification/dist/angular-ui-notification.js',
+		'node_modules/angular-resource/angular-resource.js',
+		'node_modules/angular-ui-router/release/angular-ui-router.js',
+		'node_modules/angular-ui-switch/angular-ui-switch.css',
+		'node_modules/angular-ui-switch/angular-ui-switch.js',
+		'node_modules/font-awesome/css/font-awesome.css', // NOTE: Font files are handled in controllers/vendors.js
 	],
 };
 // }}}
