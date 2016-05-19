@@ -25,7 +25,7 @@ var defaults = {
 	env: env,
 	root: path.normalize(__dirname + '/..'),
 	host: null, // Listen to all host requests
-	port: process.env.PORT || 80,
+	port: process.env.PORT || 8080,
 	url: 'http://localhost',
 	secret: "{{FIXME.random}}", // A quick way to populate this is with `cat /dev/urandom | base64 | head -n10`
 	access: {
