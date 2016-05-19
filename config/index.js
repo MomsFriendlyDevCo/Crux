@@ -39,6 +39,17 @@ var defaults = {
 		debugCSS: true,
 		minifyCSS: false,
 	},
+	email: {
+		enabled: true,
+		method: 'mailgun',
+		from: 'noreply@{{FIXME.project.domain}}',
+		to: '',
+		cc: [],
+	},
+	mailgun: {
+		apiKey: 'FIXME:STORE THIS IN THE PRIVATE.JS FILE!!!',
+		domain: 'FIXME:STORE THIS IN THE PRIVATE.JS FILE!!!',
+	},
 	mongo: {
 		uri: 'mongodb://localhost/{{FIXME.db.name}}',
 		options: {
