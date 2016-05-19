@@ -100,6 +100,10 @@ app.get('/api/users/profile', function(req, res) {
 	res.send(user);
 });
 
+/**
+* Save the user profile
+* @param object req.body.settings Settings object to save
+*/
 app.post('/api/users/profile', function(req, res) {
 	async()
 		.then(function(next) {
