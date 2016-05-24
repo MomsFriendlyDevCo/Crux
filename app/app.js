@@ -50,3 +50,7 @@ $(document).on('shown.bs.modal', function() {
 });
 // }}}
 // }}}
+
+// Insist that the URL must be of the form something.com/#/route (i.e. that hash should be prefixed by a slash) {{{
+if (window.location.pathname.substr(-1) != '/') window.location.pathname += '/';
+// }}}
