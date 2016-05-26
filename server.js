@@ -17,7 +17,6 @@ var requireDir = require('require-dir');
 global.app = express();
 // }}}
 // Settings {{{
-require('./config/db');
 app.set('title', config.title);
 app.set('view engine', "html");
 app.set('layout', 'layouts/main');
@@ -43,13 +42,18 @@ app.use(require('cookie-parser')());
 app.use(bodyParser.json({limit: '16mb'}));
 app.use(bodyParser.urlencoded({limit: '16mb', extended: false}));
 // }}}
+// Settings / ReST (Monoxide) {{{
+var monoxide = require('monoxide');
+require('./config/db');
+require('./models');
+// }}}
 // Settings / Cookies + Sessions {{{
 app.use(require('connect-flash')());
 var session = require('express-session');
 var mongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: config.secret,
-	store: new mongoStore({mongooseConnection: mongoose.connection}),
+	store: new mongoStore({mongooseConnection: monoxide.connection}),
 	resave: false,
 	saveUninitialized: false,
 	cookie: {
@@ -58,105 +62,35 @@ app.use(session({
 	}
 }));
 // }}}
-// Settings / Passport {{{
-global.passport = require('passport');
-
-var passportLocalStrategy = require('passport-local').Strategy;
-var Users = new require('./models/users');
-
-passport.use(new passportLocalStrategy({
-	passReqToCallback: true,
-	usernameField: 'username',
-}, function(req, username, password, next) {
-	console.log('Check login', colors.cyan(username));
-	Users.findByLogin(req, username, password, next); // Delegate to the user model
-}));
-passport.serializeUser(function(user, next) {
-	next(null, user.username);
-});
-passport.deserializeUser(function(id, next) {
-	Users
-		.findOne({username: id})
-		.exec(function(err, user) {
-			return next(err, user);
-		});
-});
-
-// Various security blocks
-global.ensure = {
-	loginFail: function(req, res, next) { // Special handler to reject login and redirect to login screen or raise error depending on context
-		console.log(colors.red('DENIED'), colors.cyan(req.url));
-		// Failed login - decide how to return
-		res.format({
-			'application/json': function() {
-				res.status(401).send({err: "Not logged in"}).end();
-			},
-			'default': function() {
-				res.redirect('/login');
-			},
-		});
-	},
-
-	login: function(req, res, next) {
-		if (req.user && req.user._id) { // Check standard passport auth (inc. cookies)
-			return next();
-		} else if (req.body.token) { // Token has been provided
-			Users.findOne({'auth.tokens.token': req.body.token}, function(err, user) {
-				if (err || !user) return ensure.loginFail(req, res, next);
-				console.log('Accepted auth token', colors.cyan(req.body.token));
-				req.user = user;
-				next();
-			});
-		} else { // Not logged in and no method being passed to handle - reject
-			ensure.loginFail(req, res, next);
-		}
-	}
-};
-
-app.use(passport.initialize());
-app.use(passport.session());
-// }}}
-// Settings / Restify {{{
-// Add express-restify-mongoose-queryizer to fix ERM not supporting `?filter=value` format any more
-app.use(require('express-restify-mongoose-queryizer')({
-	rewriteQuery: true,
-	rewriteQueryDeleteKeys: false,
-	postToPatch: true,
-	postToPatchUrl: /^\/api\/.+\/[0-9a-f]{24}$/,
-}));
-
-global.restify = require('express-restify-mongoose');
-var ERMGuard = require('express-restify-mongoose-guard')({
-	// Forbid any field that begins with '_'
-	removeFields: [/^_/],
-
-	// Allow _id and __v (but map to _v)
-	renameFields: {_id: '_id', __v: '_v'},
-
-	// Remap all DELETE methods to UPDATE setting status=deleted
-	deleteUpdateRemap: {status: 'deleted'},
-
-	// Remap GET, so it treats objects with field 'status' set to
-	// 'deleted' as objects removed from the database and therefore
-	// does not retrieve them. The assumption here is that if one
-	// would like to perform operations of "deleted" objects, one
-	// writes a custom function that queries the database directly
-	// and not by using express-restify-mongoose.
-	remapMethods: {
-		get: function(req, res, next) {
-			req.query.status = '!=deleted';
-			next(null);
-		}
-	}
-});
-restify.defaults({
-	version: '',
-	middleware: ERMGuard.preHook,
-	outputFn: ERMGuard.postHook,
-});
-// }}}
 // Settings / Logging {{{
 app.use(require('express-log-url'));
+// }}}
+// Settings / Middleware {{{
+global.middleware = {
+	ensure: {
+		/**
+		* Verify that the user is logged in or else deny
+		*/
+		login: function(req, res, next) {
+			if (req.user && req.user._id) { // Check standard passport auth (inc. cookies)
+				next();
+			} else {
+				res.status(403).end();
+			}
+		},
+
+		/**
+		* Verify that the user is logged in AND is an admin OR root account
+		*/
+		admin: function(req, res, next) {
+			if (req.user && req.user._id && (req.user.role == 'admin' || req.user.role == 'root')) {
+				next();
+			} else {
+				res.status(403).end();
+			}
+		},
+	},
+};
 // }}}
 // Controllers {{{
 require('./controllers/users'); // Invoke users first as it needs to install its passport middleware

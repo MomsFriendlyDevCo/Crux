@@ -2,12 +2,79 @@ var _ = require('lodash');
 var async = require('async-chainable');
 var colors = require('chalk');
 var Users = require('../models/users');
+var uuid = require('uuid');
+
+// Passport setup {{{
+var passport = require('passport');
+var passportLocalStrategy = require('passport-local').Strategy;
+
+// Setup local stratergy
+passport.use(new passportLocalStrategy({
+	passReqToCallback: true,
+	usernameField: 'username',
+}, function(req, username, password, next) {
+	console.log(colors.blue('[LOGIN]'), 'Check login', colors.cyan(username));
+
+	// Lookup user by username
+	Users.findOne({$errNotFound: false, username: username}, function(err, user) {
+		if (err) return next(err);
+		if (!user) {
+			console.log(colors.blue('[LOGIN]'), 'Username not found', colors.cyan(username));
+			return next(null, false, req.flash('passportMessage', 'Incorrect username'));
+		} else if (user.status =='unverified'){
+			console.log(colors.blue('[LOGIN]'), 'Account not verified', colors.cyan(username));
+			return next(null, false, req.flash('passportMessage', 'Account not verified'));
+		} else {
+			user.validPassword(password, function(err, isMatch) {
+				if (err) return next(err);
+				if (!isMatch) {
+					console.log(colors.blue('[LOGIN]'), 'Invalid password for', colors.cyan(username));
+					next(null, false, req.flash('passportMessage', 'Incorrect password'));
+				} else {
+					console.log(colors.blue('[LOGIN]'), 'Successful login for', colors.cyan(username));
+					next(null, user);
+				}
+			});
+		}
+	});
+}));
+
+// Tell passport what to save to lookup the user on the next cycle
+passport.serializeUser(function(user, next) {
+	next(null, user.username);
+});
+
+// Tell passport to to retrieve the full user we stashed in passport.serializeUser()
+passport.deserializeUser(function(id, next) {
+	Users
+		.findOne({username: id}, function(err, user) {
+			return next(err, user);
+		});
+});
+
+// Boot passport and its session handler
+app.use(passport.initialize());
+app.use(passport.session());
+// }}}
 
 app.post('/login', passport.authenticate('local', {
-	successRedirect: '/',
 	failureRedirect: '/login',
 	failureFlash: true
-}));
+}), function(req, res){
+	if(req.user.token){
+		//User requested password reset but logs in with current password
+		Users.update({username:req.user.username}, {token:null}, function(err, doc){
+			res.redirect('/')
+		})
+	} else {
+		res.redirect('/');
+	}
+});
+
+app.get('/logout', function(req, res) {
+	req.logout();
+	res.redirect('/');
+});
 
 app.get('/login', function(req, res) {
 	if (req.user) // Already logged in
@@ -94,10 +161,17 @@ app.post('/signup', function(req, res, finish) {
 app.get('/api/users/profile', function(req, res) {
 	if (!req.user) return res.status(200).send({});
 
-	var user = _.clone(req.user.data);
-	user.settings = req.user.settings;
-
-	res.send(user);
+	// Decide what gets exposed to the front-end
+	res.send({
+		_id: req.user._id,
+		username: req.user.username,
+		email: req.user.email,
+		name: req.user.name,
+		role: req.user.role,
+		isAdmin: (req.user.role != 'user'),
+		isRoot: (req.user.role == 'root'),
+		settings: req.user.settings,
+	});
 });
 
 /**
@@ -132,21 +206,19 @@ app.post('/api/users/login', function(req, res) {
 				if (err) return next(err);
 				if (user) {
 					console.log(colors.green('Successful login for'), colors.cyan(req.body.username));
+					req.logIn(user, function(err) {
+						if (err) return next(err);
+						next();
+					});
 				} else {
 					console.log(colors.red('Failed login for'), colors.cyan(req.body.username));
-					return next('Unauthorized');
+					next('Unauthorized');
 				}
-				req.logIn(user, function(err) {
-					if (err) return next(err);
-					var output = _.clone(user.data);
-					output.settings = user.settings;
-					return next(null, output);
-				});
 			})(req, res, next);
 		})
 		.end(function(err) {
 			if (err) return res.send({error: 'Invalid username or password'});
-			res.send(this.profile);
+			res.redirect('/api/users/profile');
 		});
 });
 
@@ -154,6 +226,3 @@ app.post('/api/users/logout', function(req, res) {
 	req.logout();
 	res.status(200).send({});
 });
-
-// FIXME: Security needed here to ensure only admins can get CRUD access
-restify.serve(app, Users);

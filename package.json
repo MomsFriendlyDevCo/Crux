@@ -66,7 +66,7 @@
     "map-stream": "0.0.6",
     "mkdirp": "^0.5.1",
     "moment": "^2.13.0",
-    "mongoose": "^4.4.17",
+    "monoxide": "0.0.39",
     "multer": "^1.1.0",
     "newrelic": "^1.27.2",
     "nodemailer": "^2.2.1",

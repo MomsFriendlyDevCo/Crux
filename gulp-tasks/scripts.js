@@ -35,7 +35,7 @@ gulp.task('scripts', ['load:config'], function() {
 				return [file.contents.toString('utf8'), file.stat.mtime, file.stat.size].join('');
 			},
 			success: function(file) {
-				gutil.log('Babel compile', colors.cyan(file.relative));
+				gutil.log(gutil.colors.blue('[Babel]'), 'compile', colors.cyan(file.relative));
 				return true;
 			},
 		}))
