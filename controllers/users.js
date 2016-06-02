@@ -21,7 +21,7 @@ passport.use(new passportLocalStrategy({
 		if (!user) {
 			console.log(colors.blue('[LOGIN]'), 'Username not found', colors.cyan(username));
 			return next(null, false, req.flash('passportMessage', 'Incorrect username'));
-		} else if (user.status =='unverified'){
+		} else if (user.status == 'unverified'){
 			console.log(colors.blue('[LOGIN]'), 'Account not verified', colors.cyan(username));
 			return next(null, false, req.flash('passportMessage', 'Account not verified'));
 		} else {
