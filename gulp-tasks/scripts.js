@@ -3,6 +3,7 @@ var cache = require('gulp-cache');
 var concat = require('gulp-concat');
 var babel = require('gulp-babel');
 var colors = require('chalk');
+var fs = require('fs');
 var gplumber = require('gulp-plumber');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
@@ -51,7 +52,7 @@ gulp.task('scripts', ['load:config'], function() {
 				notify({
 					title: config.title + ' - Scripts',
 					message: 'Rebuilt frontend scripts' + (++scriptBootCount > 1 ? ' #' + scriptBootCount : ''),
-					icon: __dirname + '/icons/angular.png',
+					icon: __dirname + '/icons/javascript.png',
 				}).write(0);
 		});
 });
