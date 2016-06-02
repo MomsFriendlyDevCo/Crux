@@ -11,11 +11,15 @@
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
 	<link rel="shortcut icon" href="/favicon.png" type="image/x-icon"/>
 
-	<script src="/build/vendor.min.js"></script>
-	<link href="/build/vendor.min.css" rel="stylesheet" type="text/css"/>
-	<script src="/build/site.min.js"></script>
+	<!-- Core vendors -->
+	<link rel='stylesheet' href="/build/vendors-core.min.css"/>
+	<script src="/build/vendors-core.min.js" defer async></script>
+
+	<script src="/build/vendors-main.min.js" defer></script>
+	<link href="/build/vendors-main.min.css" rel="stylesheet" type="text/css"/>
+	<script src="/build/site.min.js" defer></script>
 	<link href="/build/site.min.css" rel="stylesheet" type="text/css"/>
-	<script src="/build/partials.min.js"></script>
+	<script src="/build/partials.min.js" defer></script>
 </head>
 
 <body ng-app="app" ng-controller="globalController">
