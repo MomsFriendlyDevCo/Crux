@@ -1,6 +1,8 @@
 var app = angular.module('app', [
 	'angular-bs-confirm',
+	'angular-bs-popover',
 	'angular-bs-tooltip',
+	'angular-ui-loader',
 	'ngResource',
 	'ui.gravatar',
 	'ui.router',
@@ -20,6 +22,23 @@ app.config(function($httpProvider) {
 	// Enable async HTTP for performance boost
 	$httpProvider.useApplyAsync(true);
 });
+
+// Loader display while routing {{{
+app.run(function($rootScope, $loader, $state) {
+	$rootScope.$on('$stateChangeStart', () => $loader.clear().start('stateChange'));
+	$rootScope.$on('$stateChangeSuccess', () => $loader.stop('stateChange'));
+	$rootScope.$on('$stateChangeError', () => $loader.stop('stateChange'));
+});
+// }}}
+
+// Notification config {{{
+app.config(function(NotificationProvider) {
+	NotificationProvider.setOptions({
+		positionX: 'right',
+		positionY: 'bottom'
+	});
+});
+// }}}
 
 // Router related bugfixes {{{
 app.run(function($rootScope) {
@@ -42,6 +61,7 @@ app.run(function($rootScope) {
 	// }}}
 });
 // }}}
+
 // jQuery related bugfixes {{{
 // Focus items within a modal if they have the [autofocus] attrib {{{
 $(document).on('shown.bs.modal', function() {
