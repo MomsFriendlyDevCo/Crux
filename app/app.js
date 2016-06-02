@@ -10,7 +10,7 @@ var app = angular.module('app', [
 
 
 app.config(function($compileProvider) {
-	if (!location.host.match(/^local/)) {
+	if (!location.host.match(/^local|glitch|slab/)) { // Are we on localhost etc?
 		// Disabled in production for performance boost
 		$compileProvider.debugInfoEnabled(false);
 	}
