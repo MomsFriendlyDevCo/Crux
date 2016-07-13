@@ -23,6 +23,22 @@ app.config(function($httpProvider) {
 	$httpProvider.useApplyAsync(true);
 });
 
+// Hook into $httpProvider to tell $notification when the server is up again {{{
+// Provide window.ngEmitter as a means to inject messages into Angular from external
+window.ngEmitter = function(e) { console.warn('Discarded window.ngEmitter(' + e + ') call - app.run() has not yet executed') };
+
+app.run(function($rootScope) {
+	window.ngEmitter = $rootScope.$emit.bind($rootScope);
+});
+
+app.config(function($httpProvider) {
+	$httpProvider.defaults.transformResponse.push(function(data, head, status) {
+		if (status != -1) window.ngEmitter('isOffline', false);
+		return data;
+	});
+});
+// }}}
+
 // Loader display while routing {{{
 app.run(function($rootScope, $loader, $state) {
 	$rootScope.$on('$stateChangeStart', () => $loader.clear().start('stateChange'));
