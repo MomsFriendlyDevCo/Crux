@@ -41,6 +41,7 @@ if (config.access && config.access.lockdown) {
 app.use(require('cookie-parser')());
 app.use(bodyParser.json({limit: '16mb'}));
 app.use(bodyParser.urlencoded({limit: '16mb', extended: false}));
+app.use(require('compression')());
 // }}}
 // Settings / ReST (Monoxide) {{{
 var monoxide = require('monoxide');
