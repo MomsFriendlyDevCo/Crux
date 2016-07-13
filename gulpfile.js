@@ -46,6 +46,7 @@ global.paths = {
 			// Core vendor dependencies - these should be as minimal as possible
 			// Injected as a <script/> at the start of the <head/>
 			'node_modules/angular-ui-loader/dist/loader.{js,css}',
+			'lib/vendor-core/loader.css',
 		],
 		main: [
 			// Main vendor dependencies - these include pretty much everything else below-the-fold
@@ -57,17 +58,18 @@ global.paths = {
 			'node_modules/lodash/lodash.js',
 			'node_modules/moment/moment.js',
 			// --- packages with dependents below this line --- //
+			'node_modules/bootstrap/dist/css/bootstrap.css',
+			'node_modules/bootstrap/dist/js/bootstrap.js',
 			// --- less important vendors below this line (alphabetical) --- //
 			'node_modules/angular-bs-confirm/angular-bs-confirm.js',
 			'node_modules/angular-bs-popover/angular-bs-popover.js',
 			'node_modules/angular-bs-tooltip/angular-bs-tooltip.js',
 			'node_modules/angular-gravatar/build/angular-gravatar.js',
+			'node_modules/angular-ui-loader/dist/ng-loader.js',
 			'node_modules/angular-ui-notification/dist/angular-ui-notification.{css,js}',
 			'node_modules/angular-resource/angular-resource.js',
 			'node_modules/angular-ui-router/release/angular-ui-router.js',
 			'node_modules/angular-ui-switch/angular-ui-switch.{css,js}',
-			'node_modules/bootstrap/dist/css/bootstrap.css',
-			'node_modules/bootstrap/dist/js/bootstrap.js',
 			'node_modules/font-awesome/css/font-awesome.css', // NOTE: Font files are handled in controllers/vendors.js
 		],
 	},
