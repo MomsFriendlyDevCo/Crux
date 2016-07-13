@@ -34,7 +34,7 @@ gulp.task('css', ['load:config'], function() {
 				notify({
 					title: config.title + ' - CSS',
 					message: 'Rebuilt frontend CSS' + (++cssBootCount > 1 ? ' #' + cssBootCount : ''),
-					icon: __dirname + '/icons/css.png',
+					icon: __dirname + '/icons/block-css.png',
 				}).write(0);
 		});
 });

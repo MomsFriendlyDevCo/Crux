@@ -171,7 +171,7 @@ gulp.task('vendors-main', ['load:config'], function(finish) {
 			notify({
 				title: config.title + ' - Main vendors',
 				message: 'Rebuilt ' + (this.js.length + this.css.length) + ' vendor files' + (++vendorBootCount > 1 ? ' #' + vendorBootCount : ''),
-				icon: __dirname + '/icons/ng.png',
+				icon: __dirname + '/icons/html5.png',
 			}).write(0);
 
 			finish();
