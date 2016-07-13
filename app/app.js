@@ -35,7 +35,7 @@ app.run(function($rootScope, $loader, $state) {
 app.config(function(NotificationProvider) {
 	NotificationProvider.setOptions({
 		positionX: 'right',
-		positionY: 'bottom'
+		positionY: 'bottom',
 	});
 });
 // }}}

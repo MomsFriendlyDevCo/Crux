@@ -3,7 +3,6 @@ var cache = require('gulp-cache');
 var concat = require('gulp-concat');
 var babel = require('gulp-babel');
 var colors = require('chalk');
-var fs = require('fs');
 var gplumber = require('gulp-plumber');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
